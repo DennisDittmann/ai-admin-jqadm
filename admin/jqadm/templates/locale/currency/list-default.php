@@ -92,7 +92,7 @@ $columnList = [
 	);
 ?>
 
-<form method="POST" action="<?= $enc->attr( $this->url( $target, $controller, $action, $params, [], $config ) ); ?>">
+<form class="list list-locale-currency" method="POST" action="<?= $enc->attr( $this->url( $target, $controller, $action, $params, [], $config ) ); ?>">
 	<?= $this->csrf()->formfield(); ?>
 
 	<table class="list-items table table-hover table-striped">
@@ -128,10 +128,10 @@ $columnList = [
 					'data' => [
 						'locale.currency.id' => ['op' => '=='],
 						'locale.currency.status' => ['op' => '==', 'type' => 'select', 'val' => [
-							'1' => $this->translate( 'admin', 'status:enabled' ),
-							'0' => $this->translate( 'admin', 'status:disabled' ),
-							'-1' => $this->translate( 'admin', 'status:review' ),
-							'-2' => $this->translate( 'admin', 'status:archive' ),
+							'1' => $this->translate( 'mshop/code', 'status:1' ),
+							'0' => $this->translate( 'mshop/code', 'status:0' ),
+							'-1' => $this->translate( 'mshop/code', 'status:-1' ),
+							'-2' => $this->translate( 'mshop/code', 'status:-2' ),
 						]],
 						'locale.currency.code' => ['op' => '=='],
 						'locale.currency.label' => [],
@@ -168,14 +168,14 @@ $columnList = [
 					<?php endif; ?>
 
 					<td class="actions">
-						<a class="btn act-delete fa" tabindex="1"
-							href="<?= $enc->attr( $this->url( $delTarget, $delCntl, $delAction, ['id' => strtoupper( $id )] + $params, [], $delConfig ) ); ?>"
-							title="<?= $enc->attr( $this->translate( 'admin', 'Delete this entry') ); ?>"
-							aria-label="<?= $enc->attr( $this->translate( 'admin', 'Delete' ) ); ?>"></a>
 						<a class="btn act-copy fa" tabindex="1"
 							href="<?= $enc->attr( $this->url( $copyTarget, $copyCntl, $copyAction, ['id' => strtoupper( $id )] + $params, [], $copyConfig ) ); ?>"
 							title="<?= $enc->attr( $this->translate( 'admin', 'Copy this entry') ); ?>"
 							aria-label="<?= $enc->attr( $this->translate( 'admin', 'Copy' ) ); ?>"></a>
+						<a class="btn act-delete fa" tabindex="1"
+							href="<?= $enc->attr( $this->url( $delTarget, $delCntl, $delAction, ['id' => strtoupper( $id )] + $params, [], $delConfig ) ); ?>"
+							title="<?= $enc->attr( $this->translate( 'admin', 'Delete this entry') ); ?>"
+							aria-label="<?= $enc->attr( $this->translate( 'admin', 'Delete' ) ); ?>"></a>
 					</td>
 				</tr>
 			<?php endforeach; ?>

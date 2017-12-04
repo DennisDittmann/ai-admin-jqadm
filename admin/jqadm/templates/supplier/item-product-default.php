@@ -113,10 +113,10 @@ $refItems = $this->get( 'productItems', [] );
 					'data' => [
 						'supplier.lists.position' => ['op' => '>=', 'type' => 'number'],
 						'supplier.lists.status' => ['op' => '==', 'type' => 'select', 'val' => [
-							'1' => $this->translate( 'admin', 'status:enabled' ),
-							'0' => $this->translate( 'admin', 'status:disabled' ),
-							'-1' => $this->translate( 'admin', 'status:review' ),
-							'-2' => $this->translate( 'admin', 'status:archive' ),
+							'1' => $this->translate( 'mshop/code', 'status:1' ),
+							'0' => $this->translate( 'mshop/code', 'status:0' ),
+							'-1' => $this->translate( 'mshop/code', 'status:-1' ),
+							'-2' => $this->translate( 'mshop/code', 'status:-2' ),
 						]],
 						'supplier.lists.typeid' => ['op' => '==', 'type' => 'select', 'val' => $this->get( 'productListTypes', [])],
 						'supplier.lists.config' => ['op' => '~='],
@@ -154,16 +154,16 @@ $refItems = $this->get( 'productItems', [] );
 											<?= $enc->html( $this->translate( 'admin', 'Please select' ) ); ?>
 										</option>
 										<option value="1">
-											<?= $enc->html( $this->translate( 'admin', 'status:enabled' ) ); ?>
+											<?= $enc->html( $this->translate( 'mshop/code', 'status:1' ) ); ?>
 										</option>
 										<option value="0">
-											<?= $enc->html( $this->translate( 'admin', 'status:disabled' ) ); ?>
+											<?= $enc->html( $this->translate( 'mshop/code', 'status:0' ) ); ?>
 										</option>
 										<option value="-1">
-											<?= $enc->html( $this->translate( 'admin', 'status:review' ) ); ?>
+											<?= $enc->html( $this->translate( 'mshop/code', 'status:-1' ) ); ?>
 										</option>
 										<option value="-2">
-											<?= $enc->html( $this->translate( 'admin', 'status:archive' ) ); ?>
+											<?= $enc->html( $this->translate( 'mshop/code', 'status:-2' ) ); ?>
 										</option>
 									</select>
 								</div>
@@ -276,16 +276,16 @@ $refItems = $this->get( 'productItems', [] );
 									<?= $enc->html( $this->translate( 'admin', 'Please select' ) ); ?>
 								</option>
 								<option value="1" <?= $selected( $this->get( 'productData/supplier.lists.status/' . $idx, 1 ), 1 ); ?> >
-									<?= $enc->html( $this->translate( 'admin', 'status:enabled' ) ); ?>
+									<?= $enc->html( $this->translate( 'mshop/code', 'status:1' ) ); ?>
 								</option>
 								<option value="0" <?= $selected( $this->get( 'productData/supplier.lists.status/' . $idx, 1 ), 0 ); ?> >
-									<?= $enc->html( $this->translate( 'admin', 'status:disabled' ) ); ?>
+									<?= $enc->html( $this->translate( 'mshop/code', 'status:0' ) ); ?>
 								</option>
 								<option value="-1" <?= $selected( $this->get( 'productData/supplier.lists.status/' . $idx, 1 ), -1 ); ?> >
-									<?= $enc->html( $this->translate( 'admin', 'status:review' ) ); ?>
+									<?= $enc->html( $this->translate( 'mshop/code', 'status:-1' ) ); ?>
 								</option>
 								<option value="-2" <?= $selected( $this->get( 'productData/supplier.lists.status/' . $idx, 1 ), -2 ); ?> >
-									<?= $enc->html( $this->translate( 'admin', 'status:archive' ) ); ?>
+									<?= $enc->html( $this->translate( 'mshop/code', 'status:-2' ) ); ?>
 								</option>
 							</select>
 						</td>
@@ -387,13 +387,13 @@ $refItems = $this->get( 'productItems', [] );
 							name="<?= $enc->attr( $this->formparam( array( 'product', 'supplier.lists.id', '' ) ) ); ?>" />
 
 						<?php if( !$this->site()->readonly( $siteId ) ) : ?>
+							<a class="btn act-edit fa" tabindex="<?= $this->get( 'tabindex' ); ?>" href="#"
+								title="<?= $enc->attr( $this->translate( 'admin', 'Edit this entry') ); ?>"
+								aria-label="<?= $enc->attr( $this->translate( 'admin', 'Edit' ) ); ?>"></a>
 							<a class="btn act-delete fa" tabindex="<?= $this->get( 'tabindex' ); ?>"
 								href="<?= $enc->attr( $this->url( $delTarget, $delCntl, $delAction, ['resource' => 'supplier/lists', 'id' => $listId] + $params, [], $delConfig ) ); ?>"
 								title="<?= $enc->attr( $this->translate( 'admin', 'Delete this entry') ); ?>"
 								aria-label="<?= $enc->attr( $this->translate( 'admin', 'Delete' ) ); ?>"></a>
-							<a class="btn act-edit fa" tabindex="<?= $this->get( 'tabindex' ); ?>" href="#"
-								title="<?= $enc->attr( $this->translate( 'admin', 'Edit this entry') ); ?>"
-								aria-label="<?= $enc->attr( $this->translate( 'admin', 'Edit' ) ); ?>"></a>
 						<?php endif; ?>
 					</td>
 				</tr>

@@ -56,10 +56,12 @@
 }
 
 .aimeos .main-navbar .btn.act-show.fa:before,
+.aimeos .advanced.collapsed .btn.act-show.fa:before,
 .aimeos .card-header.collapsed .btn.act-show.fa:before {
 	content: "\f078";
 }
 
+.aimeos .advanced .btn.act-show.fa:before,
 .aimeos .card-header .btn.act-show.fa:before {
 	content: "\f077";
 }
@@ -97,7 +99,7 @@
 }
 
 .aimeos .btn.act-menu.fa:before {
-	content: "\f150";
+	content: "\f067";
 }
 
 .aimeos .btn.act-save.fa:before {
@@ -107,6 +109,10 @@
 .aimeos .btn.act-view.fa:before {
 	font: normal normal normal 14px/1 FontAwesome;
 	content: "\f06e";
+}
+
+.aimeos .btn.act-show.fa:before {
+	content: "\f078";
 }
 
 .aimeos .item-refid.btn.act-view.fa {
@@ -130,6 +136,19 @@
 
 .aimeos .content-block {
 	margin-bottom: 1rem;
+}
+
+.aimeos .card-block .advanced {
+	border-top: solid 1px #DFDFDF;
+	margin-bottom: 1rem;
+}
+
+.aimeos .card-block .advanced.collapsed {
+	border-bottom: solid 1px #DFDFDF;
+}
+
+.aimeos .card-block .secondary {
+	display: none;
 }
 
 .aimeos .table {
@@ -187,10 +206,8 @@
 	width: 100%;
 }
 
-.aimeos .dropdown-item .label {
+.aimeos .dropdown-item label {
 	display: block !important;
-	padding: 0 !important;
-	margin: 0 !important;
 	text-align: left;
 	color: #464a4c;
 }

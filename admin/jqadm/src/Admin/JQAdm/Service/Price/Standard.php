@@ -289,16 +289,31 @@ class Standard
 	protected function addViewData( \Aimeos\MW\View\Iface $view )
 	{
 		$context = $this->getContext();
-		$priceManager = \Aimeos\MShop\Factory::createManager( $context, 'price/type' );
-		$currencyManager = \Aimeos\MShop\Factory::createManager( $context, 'locale/currency' );
+		$priceTypeManager = \Aimeos\MShop\Factory::createManager( $context, 'price/type' );
 
-		$search = $priceManager->createSearch();
+		$search = $priceTypeManager->createSearch();
 		$search->setConditions( $search->compare( '==', 'price.type.domain', 'service' ) );
 		$search->setSortations( array( $search->sort( '+', 'price.type.label' ) ) );
 
-		$view->priceCurrencies = $currencyManager->searchItems( $currencyManager->createSearch( true ) );
-		$view->priceCurrencyDefault = $context->getLocale()->getCurrencyId();
-		$view->priceTypes = $priceManager->searchItems( $search );
+
+		$listTypeManager = \Aimeos\MShop\Factory::createManager( $context, 'service/lists/type' );
+
+		$listSearch = $listTypeManager->createSearch( true );
+		$listSearch->setConditions( $listSearch->compare( '==', 'service.lists.type.domain', 'price' ) );
+		$listSearch->setSortations( array( $listSearch->sort( '+', 'service.lists.type.label' ) ) );
+
+
+		$currencyManager = \Aimeos\MShop\Factory::createManager( $context, 'locale/currency' );
+		$currencyItems = $currencyManager->searchItems( $currencyManager->createSearch( true ) );
+
+		if( $currencyItems === [] ) {
+			throw new \Aimeos\Admin\JQAdm\Exception( 'No currencies available. Please enable at least one currency' );
+		}
+
+
+		$view->priceCurrencies = $currencyItems;
+		$view->priceTypes = $priceTypeManager->searchItems( $search );
+		$view->priceListTypes = $this->sortType( $listTypeManager->searchItems( $listSearch ) );
 
 		return $view;
 	}
@@ -320,18 +335,16 @@ class Standard
 		$listTypeManager = \Aimeos\MShop\Factory::createManager( $context, 'service/lists/type' );
 
 		$listIds = (array) $this->getValue( $data, 'service.lists.id', [] );
-		$listItems = $manager->getItem( $item->getId(), array( 'price' ) )->getListItems( 'price' );
+		$listItems = $manager->getItem( $item->getId(), array( 'price' ) )->getListItems( 'price', null, null, false );
 
 
 		$listItem = $listManager->createItem();
 		$listItem->setParentId( $item->getId() );
-		$listItem->setTypeId( $listTypeManager->findItem( 'default', [], 'price' )->getId() );
 		$listItem->setDomain( 'price' );
 		$listItem->setStatus( 1 );
 
 		$newItem = $priceManager->createItem();
 		$newItem->setDomain( 'service' );
-		$newItem->setStatus( 1 );
 
 
 		foreach( $listIds as $idx => $listid )
@@ -339,9 +352,7 @@ class Standard
 			if( !isset( $listItems[$listid] ) )
 			{
 				$priceItem = clone $newItem;
-
-				$litem = $listItem;
-				$litem->setId( null );
+				$litem = clone $listItem;
 			}
 			else
 			{
@@ -349,6 +360,7 @@ class Standard
 				$priceItem = $litem->getRefItem();
 			}
 
+			$priceItem->setStatus( $this->getValue( $data, 'price.status/' . $idx ) );
 			$priceItem->setTypeId( $this->getValue( $data, 'price.typeid/' . $idx ) );
 			$priceItem->setCurrencyId( $this->getValue( $data, 'price.currencyid/' . $idx ) );
 			$priceItem->setQuantity( $this->getValue( $data, 'price.quantity/' . $idx, 1 ) );
@@ -362,8 +374,24 @@ class Standard
 
 			$priceItem = $priceManager->saveItem( $priceItem );
 
+
+			$conf = [];
+
+			foreach( (array) $this->getValue( $data, 'config/' . $idx . '/key' ) as $num => $key )
+			{
+				$val = $this->getValue( $data, 'config/' . $idx . '/val/' . $num );
+
+				if( trim( $key ) !== '' && $val !== null ) {
+					$conf[$key] = trim( $val );
+				}
+			}
+
+			$litem->setConfig( $conf );
 			$litem->setPosition( $idx );
 			$litem->setRefId( $priceItem->getId() );
+			$litem->setTypeId( $this->getValue( $data, 'service.lists.typeid/' . $idx ) );
+			$litem->setDateStart( $this->getValue( $data, 'service.lists.datestart/' . $idx ) );
+			$litem->setDateEnd( $this->getValue( $data, 'service.lists.dateend/' . $idx ) );
 
 			$listManager->saveItem( $litem, false );
 		}
@@ -390,6 +418,7 @@ class Standard
 	 */
 	protected function toArray( \Aimeos\MShop\Service\Item\Iface $item, $copy = false )
 	{
+		$idx = 0;
 		$data = [];
 		$siteId = $this->getContext()->getLocale()->getSiteId();
 
@@ -411,9 +440,17 @@ class Standard
 				$data[$key][] = $value;
 			}
 
+			foreach( $list['service.lists.config'] as $key => $val )
+			{
+				$data['config'][$idx]['key'][] = $key;
+				$data['config'][$idx]['val'][] = $val;
+			}
+
 			foreach( $refItem->toArray( true ) as $key => $value ) {
 				$data[$key][] = $value;
 			}
+
+			$idx++;
 		}
 
 		return $data;

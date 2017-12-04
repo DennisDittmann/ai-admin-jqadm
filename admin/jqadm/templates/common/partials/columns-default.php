@@ -29,17 +29,19 @@ $names = array_merge( (array) $this->get( 'group', [] ), ['fields', ''] );
 ?>
 <div class="dropdown filter-columns">
 	<button class="btn act-columns fa" type="button" id="dropdownMenuButton"
-		data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="<?= $this->get( 'tabindex', 1 ); ?>">
+		data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="<?= $this->get( 'tabindex', 1 ); ?>"
+		aria-label="<?= $enc->attr( $this->translate( 'admin', 'Columns' ) ); ?>"
+		title="<?= $enc->attr( $this->translate( 'admin', 'Columns') ); ?>">
 	</button>
 	<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
 		<?php foreach( $this->get( 'data', [] ) as $key => $name ) : ?>
 			<li class="dropdown-item">
-				<label>
+				<a href="#"><label>
 					<input type="checkbox" tabindex="<?= $this->get( 'tabindex', 1 ); ?>"
 						name="<?= $enc->attr( $this->formparam( $names ) ); ?>"
 						value="<?= $enc->attr( $key ); ?>" <?= $checked( $fields, $key ); ?> />
 					<?= $enc->html( $name ); ?>
-				</label>
+				</label></a>
 			</li>
 		<?php endforeach; ?>
 	</ul>

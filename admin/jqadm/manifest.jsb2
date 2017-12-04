@@ -56,6 +56,15 @@
 			"text": "dashboard.js",
 			"path": "themes/"
 		},{
+			"text": "dashboard-sales.js",
+			"path": "themes/"
+		},{
+			"text": "dashboard-order.js",
+			"path": "themes/"
+		},{
+			"text": "dashboard-service.js",
+			"path": "themes/"
+		},{
 			"text": "customer.js",
 			"path": "themes/"
 		},{

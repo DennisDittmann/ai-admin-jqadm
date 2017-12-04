@@ -67,10 +67,10 @@ class Standard
 	 * @category Developer
 	 */
 
-	/** admin/jqadm/dashboard/order/paymentstatus/name
-	 * Name of the order paymentstatus subpart used by the JQAdm dashboard implementation
+	/** admin/jqadm/dashboard/order/salesday/name
+	 * Name of the order salesday subpart used by the JQAdm dashboard implementation
 	 *
-	 * Use "Myname" if your class is named "\Aimeos\Admin\Jqadm\Dashboard\Order\Paymentstatus\Myname".
+	 * Use "Myname" if your class is named "\Aimeos\Admin\Jqadm\Dashboard\Order\Salesday\Myname".
 	 * The name is case-sensitive and you should avoid camel case names like "MyName".
 	 *
 	 * @param string Last part of the JQAdm class name
@@ -78,10 +78,10 @@ class Standard
 	 * @category Developer
 	 */
 
-	/** admin/jqadm/dashboard/order/weekday/name
-	 * Name of the order weekday subpart used by the JQAdm dashboard implementation
+	/** admin/jqadm/dashboard/order/salesmonth/name
+	 * Name of the order salesmonth subpart used by the JQAdm dashboard implementation
 	 *
-	 * Use "Myname" if your class is named "\Aimeos\Admin\Jqadm\Dashboard\Order\Weekday\Myname".
+	 * Use "Myname" if your class is named "\Aimeos\Admin\Jqadm\Dashboard\Order\Salesmonth\Myname".
 	 * The name is case-sensitive and you should avoid camel case names like "MyName".
 	 *
 	 * @param string Last part of the JQAdm class name
@@ -89,10 +89,10 @@ class Standard
 	 * @category Developer
 	 */
 
-	/** admin/jqadm/dashboard/order/hour/name
-	 * Name of the order hour subpart used by the JQAdm dashboard implementation
+	/** admin/jqadm/dashboard/order/salesweekday/name
+	 * Name of the order salesweekday subpart used by the JQAdm dashboard implementation
 	 *
-	 * Use "Myname" if your class is named "\Aimeos\Admin\Jqadm\Dashboard\Order\Hour\Myname".
+	 * Use "Myname" if your class is named "\Aimeos\Admin\Jqadm\Dashboard\Order\Salesweekday\Myname".
 	 * The name is case-sensitive and you should avoid camel case names like "MyName".
 	 *
 	 * @param string Last part of the JQAdm class name
@@ -100,10 +100,10 @@ class Standard
 	 * @category Developer
 	 */
 
-	/** admin/jqadm/dashboard/order/day/name
-	 * Name of the order day subpart used by the JQAdm dashboard implementation
+	/** admin/jqadm/dashboard/order/countpaystatus/name
+	 * Name of the order countpaystatus subpart used by the JQAdm dashboard implementation
 	 *
-	 * Use "Myname" if your class is named "\Aimeos\Admin\Jqadm\Dashboard\Order\Day\Myname".
+	 * Use "Myname" if your class is named "\Aimeos\Admin\Jqadm\Dashboard\Order\Countpaystatus\Myname".
 	 * The name is case-sensitive and you should avoid camel case names like "MyName".
 	 *
 	 * @param string Last part of the JQAdm class name
@@ -111,10 +111,10 @@ class Standard
 	 * @category Developer
 	 */
 
-	/** admin/jqadm/dashboard/order/paymenttype/name
-	 * Name of the order paymenttype subpart used by the JQAdm dashboard implementation
+	/** admin/jqadm/dashboard/order/counthour/name
+	 * Name of the order counthour subpart used by the JQAdm dashboard implementation
 	 *
-	 * Use "Myname" if your class is named "\Aimeos\Admin\Jqadm\Dashboard\Order\Paymenttype\Myname".
+	 * Use "Myname" if your class is named "\Aimeos\Admin\Jqadm\Dashboard\Order\Counthour\Myname".
 	 * The name is case-sensitive and you should avoid camel case names like "MyName".
 	 *
 	 * @param string Last part of the JQAdm class name
@@ -122,17 +122,39 @@ class Standard
 	 * @category Developer
 	 */
 
-	/** admin/jqadm/dashboard/order/deliverytype/name
+	/** admin/jqadm/dashboard/order/countday/name
+	 * Name of the order countday subpart used by the JQAdm dashboard implementation
+	 *
+	 * Use "Myname" if your class is named "\Aimeos\Admin\Jqadm\Dashboard\Order\Countday\Myname".
+	 * The name is case-sensitive and you should avoid camel case names like "MyName".
+	 *
+	 * @param string Last part of the JQAdm class name
+	 * @since 2018.01
+	 * @category Developer
+	 */
+
+	/** admin/jqadm/dashboard/order/servicepayment/name
+	 * Name of the order servicepayment subpart used by the JQAdm dashboard implementation
+	 *
+	 * Use "Myname" if your class is named "\Aimeos\Admin\Jqadm\Dashboard\Order\Servicepayment\Myname".
+	 * The name is case-sensitive and you should avoid camel case names like "MyName".
+	 *
+	 * @param string Last part of the JQAdm class name
+	 * @since 2018.01
+	 * @category Developer
+	 */
+
+	/** admin/jqadm/dashboard/order/servicedelivery/name
 	 * Name of the order deliverytype subpart used by the JQAdm dashboard implementation
 	 *
-	 * Use "Myname" if your class is named "\Aimeos\Admin\Jqadm\Dashboard\Order\Deliverytype\Myname".
+	 * Use "Myname" if your class is named "\Aimeos\Admin\Jqadm\Dashboard\Order\Servicedelivery\Myname".
 	 * The name is case-sensitive and you should avoid camel case names like "MyName".
 	 *
 	 * @param string Last part of the JQAdm class name
 	 * @since 2018.01
 	 * @category Developer
 	 */
-	private $subPartNames = array( 'latest', 'saleslastmonth', 'saleslastyear', 'paymentstatus', 'hour', 'day', 'paymenttype', 'deliverytype' );
+	private $subPartNames = array( 'latest', 'salesday', 'salesmonth', 'salesweekday', 'countday', 'countpaystatus', 'counthour', 'servicepayment', 'servicedelivery' );
 
 
 	/**

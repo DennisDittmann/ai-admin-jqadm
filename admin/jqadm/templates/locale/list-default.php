@@ -94,7 +94,7 @@ $columnList = [
 	);
 ?>
 
-<form method="POST" action="<?= $enc->attr( $this->url( $target, $controller, $action, $params, [], $config ) ); ?>">
+<form class="list list-locale" method="POST" action="<?= $enc->attr( $this->url( $target, $controller, $action, $params, [], $config ) ); ?>">
 	<?= $this->csrf()->formfield(); ?>
 
 	<table class="list-items table table-hover table-striped">
@@ -130,10 +130,10 @@ $columnList = [
 					'data' => [
 						'locale.id' => ['op' => '=='],
 						'locale.status' => ['op' => '==', 'type' => 'select', 'val' => [
-							'1' => $this->translate( 'admin', 'status:enabled' ),
-							'0' => $this->translate( 'admin', 'status:disabled' ),
-							'-1' => $this->translate( 'admin', 'status:review' ),
-							'-2' => $this->translate( 'admin', 'status:archive' ),
+							'1' => $this->translate( 'mshop/code', 'status:1' ),
+							'0' => $this->translate( 'mshop/code', 'status:0' ),
+							'-1' => $this->translate( 'mshop/code', 'status:-1' ),
+							'-2' => $this->translate( 'mshop/code', 'status:-2' ),
 						]],
 						'locale.languageid' => [],
 						'locale.currencyid' => [],
@@ -174,16 +174,16 @@ $columnList = [
 					<?php endif; ?>
 
 					<td class="actions">
+						<a class="btn act-copy fa" tabindex="1"
+							href="<?= $enc->attr( $this->url( $copyTarget, $copyCntl, $copyAction, ['id' => $id] + $params, [], $copyConfig ) ); ?>"
+							title="<?= $enc->attr( $this->translate( 'admin', 'Copy this entry') ); ?>"
+							aria-label="<?= $enc->attr( $this->translate( 'admin', 'Copy' ) ); ?>"></a>
 						<?php if( !$this->site()->readonly( $item->getSiteId() ) ) : ?>
 							<a class="btn act-delete fa" tabindex="1"
 								href="<?= $enc->attr( $this->url( $delTarget, $delCntl, $delAction, ['resource' => 'locale', 'id' => $id] + $params, [], $delConfig ) ); ?>"
 								title="<?= $enc->attr( $this->translate( 'admin', 'Delete this entry') ); ?>"
 								aria-label="<?= $enc->attr( $this->translate( 'admin', 'Delete' ) ); ?>"></a>
 						<?php endif; ?>
-						<a class="btn act-copy fa" tabindex="1"
-							href="<?= $enc->attr( $this->url( $copyTarget, $copyCntl, $copyAction, ['id' => $id] + $params, [], $copyConfig ) ); ?>"
-							title="<?= $enc->attr( $this->translate( 'admin', 'Copy this entry') ); ?>"
-							aria-label="<?= $enc->attr( $this->translate( 'admin', 'Copy' ) ); ?>"></a>
 					</td>
 				</tr>
 			<?php endforeach; ?>

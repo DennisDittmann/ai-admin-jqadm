@@ -95,10 +95,10 @@ $cfgSuggest = $this->config( 'admin/jqadm/catalog/item/config/suggest', ['css-cl
 					aria-haspopup="true" aria-expanded="false">
 					<span class="sr-only"><?= $enc->html( $this->translate( 'admin', 'Toggle dropdown' ) ); ?></span>
 				</button>
-				<div class="dropdown-menu dropdown-menu-right">
-					<a class="dropdown-item next-action" href="#" data-next="copy"><?= $enc->html( $this->translate( 'admin', 'Save & Copy' ) ); ?></a>
-					<a class="dropdown-item next-action" href="#" data-next="create"><?= $enc->html( $this->translate( 'admin', 'Save & New' ) ); ?></a>
-				</div>
+				<ul class="dropdown-menu dropdown-menu-right">
+					<li class="dropdown-item"><a class="next-action" href="#" data-next="copy"><?= $enc->html( $this->translate( 'admin', 'Save & Copy' ) ); ?></a></li>
+					<li class="dropdown-item"><a class="next-action" href="#" data-next="create"><?= $enc->html( $this->translate( 'admin', 'Save & New' ) ); ?></a></li>
+				</ul>
 			</div>
 		</div>
 	</nav>
@@ -170,16 +170,16 @@ $cfgSuggest = $this->config( 'admin/jqadm/catalog/item/config/suggest', ['css-cl
 											<?= $enc->html( $this->translate( 'admin', 'Please select' ) ); ?>
 										</option>
 										<option value="1" <?= $selected( $this->get( 'itemData/catalog.status', 1 ), 1 ); ?> >
-											<?= $enc->html( $this->translate( 'admin', 'status:enabled' ) ); ?>
+											<?= $enc->html( $this->translate( 'mshop/code', 'status:1' ) ); ?>
 										</option>
 										<option value="0" <?= $selected( $this->get( 'itemData/catalog.status', 1 ), 0 ); ?> >
-											<?= $enc->html( $this->translate( 'admin', 'status:disabled' ) ); ?>
+											<?= $enc->html( $this->translate( 'mshop/code', 'status:0' ) ); ?>
 										</option>
 										<option value="-1" <?= $selected( $this->get( 'itemData/catalog.status', 1 ), -1 ); ?> >
-											<?= $enc->html( $this->translate( 'admin', 'status:review' ) ); ?>
+											<?= $enc->html( $this->translate( 'mshop/code', 'status:-1' ) ); ?>
 										</option>
 										<option value="-2" <?= $selected( $this->get( 'itemData/catalog.status', 1 ), -2 ); ?> >
-											<?= $enc->html( $this->translate( 'admin', 'status:archive' ) ); ?>
+											<?= $enc->html( $this->translate( 'mshop/code', 'status:-2' ) ); ?>
 										</option>
 									</select>
 								</div>

@@ -50,7 +50,7 @@ unset( $searchParams['id'] );
 
 /// Price format with price value (%1$s) and currency (%2$s)
 $priceFormat = $this->translate( 'client/code', '%1$s %2$s' );
-$currency = $this->translate( 'client/currency', $basket->getPrice()->getCurrencyId() );
+$currency = $this->translate( 'currency', $basket->getPrice()->getCurrencyId() );
 
 $serviceAttrCodes = [
 	/** admin/jqadm/order/service/delivery/attribute/suggest
@@ -80,6 +80,18 @@ $serviceAttrCodes = [
 	 * @see admin/jqadm/order/service/delivery/attribute/suggest
 	 */
 	'payment' => $this->config( 'admin/jqadm/order/service/payment/attribute/suggest', [] ),
+];
+
+$statusList = [
+	'-1' => $this->translate( 'mshop/code', 'stat:-1' ),
+	'0' => $this->translate( 'mshop/code', 'stat:0' ),
+	'1' => $this->translate( 'mshop/code', 'stat:1' ),
+	'2' => $this->translate( 'mshop/code', 'stat:2' ),
+	'3' => $this->translate( 'mshop/code', 'stat:3' ),
+	'4' => $this->translate( 'mshop/code', 'stat:4' ),
+	'5' => $this->translate( 'mshop/code', 'stat:5' ),
+	'6' => $this->translate( 'mshop/code', 'stat:6' ),
+	'7' => $this->translate( 'mshop/code', 'stat:7' ),
 ];
 
 
@@ -115,9 +127,9 @@ $serviceAttrCodes = [
 					aria-haspopup="true" aria-expanded="false">
 					<span class="sr-only"><?= $enc->html( $this->translate( 'admin', 'Toggle dropdown' ) ); ?></span>
 				</button>
-				<div class="dropdown-menu dropdown-menu-right">
-					<a class="dropdown-item next-action" href="#" data-next="search"><?= $enc->html( $this->translate( 'admin', 'Save & Close' ) ); ?></a>
-				</div>
+				<ul class="dropdown-menu dropdown-menu-right">
+					<li class="dropdown-item"><a class="next-action" href="#" data-next="search"><?= $enc->html( $this->translate( 'admin', 'Save & Close' ) ); ?></a></li>
+				</ul>
 			</div>
 		</div>
 	</nav>
@@ -195,7 +207,7 @@ $serviceAttrCodes = [
 
 									<?php foreach( $this->get( 'pageLangItems', [] ) as $langId => $langItem ) : ?>
 										<option value="<?= $enc->attr( $langId ); ?>" <?= $selected( $basket->getLocale()->getLanguageId(), $langId ); ?> >
-											<?= $enc->html( $this->translate( 'client/language', $langId ) ); ?>
+											<?= $enc->html( $this->translate( 'language', $langId ) ); ?>
 										</option>
 									<?php endforeach; ?>
 								</select>
@@ -255,33 +267,11 @@ $serviceAttrCodes = [
 												<option value="">
 													<?= $enc->html( $this->translate( 'admin', 'Please select' ) ); ?>
 												</option>
-												<option value="-1" <?= $selected( $this->get( 'itemData/product/' . $pos . '/order.base.product.status' ), '-1' ); ?> >
-													<?= $enc->html( $this->translate( 'client/code', 'stat:-1' ) ); ?>
-												</option>
-												<option value="0" <?= $selected( $this->get( 'itemData/product/' . $pos . '/order.base.product.status' ), '0' ); ?> >
-													<?= $enc->html( $this->translate( 'client/code', 'stat:0' ) ); ?>
-												</option>
-												<option value="1" <?= $selected( $this->get( 'itemData/product/' . $pos . '/order.base.product.status' ), '1' ); ?> >
-													<?= $enc->html( $this->translate( 'client/code', 'stat:1' ) ); ?>
-												</option>
-												<option value="2" <?= $selected( $this->get( 'itemData/product/' . $pos . '/order.base.product.status' ), '2' ); ?> >
-													<?= $enc->html( $this->translate( 'client/code', 'stat:2' ) ); ?>
-												</option>
-												<option value="3" <?= $selected( $this->get( 'itemData/product/' . $pos . '/order.base.product.status' ), '3' ); ?> >
-													<?= $enc->html( $this->translate( 'client/code', 'stat:3' ) ); ?>
-												</option>
-												<option value="4" <?= $selected( $this->get( 'itemData/product/' . $pos . '/order.base.product.status' ), '4' ); ?> >
-													<?= $enc->html( $this->translate( 'client/code', 'stat:4' ) ); ?>
-												</option>
-												<option value="5" <?= $selected( $this->get( 'itemData/product/' . $pos . '/order.base.product.status' ), '5' ); ?> >
-													<?= $enc->html( $this->translate( 'client/code', 'stat:5' ) ); ?>
-												</option>
-												<option value="6" <?= $selected( $this->get( 'itemData/product/' . $pos . '/order.base.product.status' ), '6' ); ?> >
-													<?= $enc->html( $this->translate( 'client/code', 'stat:6' ) ); ?>
-												</option>
-												<option value="7" <?= $selected( $this->get( 'itemData/product/' . $pos . '/order.base.product.status' ), '7' ); ?> >
-													<?= $enc->html( $this->translate( 'client/code', 'stat:7' ) ); ?>
-												</option>
+												<?php foreach( $statusList as $code => $label ) : ?>
+													<option value="<= $code ?>" <?= $selected( $this->get( 'itemData/product/' . $pos . '/order.base.product.status' ), $code ); ?> >
+														<?= $enc->html( $label ); ?>
+													</option>
+												<?php endforeach; ?>
 											</select>
 										</td>
 										<td class="item-column column-desc">
@@ -390,7 +380,7 @@ $serviceAttrCodes = [
 
 												<?php foreach( $languages as $langId => $langItem ) : ?>
 													<option value="<?= $enc->attr( $langId ); ?>" <?= $selected( $this->get( 'itemData/address/' . $type . '/order.base.address.languageid' ), $langId ); ?> >
-														<?= $enc->html( $this->translate( 'client/language', $langId ) ); ?>
+														<?= $enc->html( $this->translate( 'language', $langId ) ); ?>
 													</option>
 												<?php endforeach; ?>
 											</select>
